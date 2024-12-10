@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"
+>
+<head>
+  <title>Update Contact</title>
+</head>
+<body>
+<div id="content">
+  <!-- sidebar -->
+
+  <!-- user is logged in : sidebar -->
+
+  <div th:if="${loggedInUser}">
+    <div data-th-replace="~{user/sidebar :: sidebar}"></div>
+  </div>
+
+  <div class="sm:pl-64 pt-20" style="height: 1000px">
+    <div class="grid grid-cols-12">
+      <div class="col-span-3"></div>
+      <div class="col-span-12 md:col-span-6">
+        <div
+                class="card block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+        >
+          <div data-th-replace="message::messagebox"></div>
+
+          <h1 class="text-2xl font-semibold">Update Your Contact</h1>
+          <p class="text-gray-500">
+            This contact will be stored on cloud, you can direct email this
+            client from scm...
+          </p>
+
+          <form
+                  action=""
+                  class="mt-8"
+                  data-th-action="@{'/user/contacts/update/' + ${id}}"
+                  data-th-object="${contactForm}"
+                  method="post"
+                  enctype="multipart/form-data"
+          >
+            <!-- name form -->
+            <div class="mb-3">
+              <label
+                      for="input-group-1"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Contact Name</label
+              >
+              <div class="relative mb-1">
+                <div
+                        class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+                >
+                  <i class="fa-regular w-4 h-4 fa-user"></i>
+                </div>
+                <input  id="name"
+                        data-th-field="*{name}"
+                        type="text"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="name"
+                />
+                <h6 id="usercheck" style="color: red;"></h6>
+              </div>
+
+            </div>
+
+            <!-- email form -->
+            <div class="mb-3">
+              <label
+                      for="input-group-1"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Contact Email</label
+              >
+              <div class="relative mb-1">
+                <div
+                        class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+                >
+                  <i class="fa-regular w-4 h-4 fa-envelope"></i>
+                </div>
+                <input  id="email"
+                        type="text"
+                        data-th-field="*{email}"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="example@gmail.com"
+                />
+                <h6 id="emailcheck" style="color: red;"></h6>
+              </div>
+
+            </div>
+
+            <!-- phone number  -->
+            <div class="mb-3">
+              <label
+                      for="input-group-1"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Contact Phone</label
+              >
+              <div class="relative mb-1">
+                <div
+                        class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+                >
+                  <i class="fa-solid w-4 h-4 fa-phone"></i>
+                </div>
+                <input  id="phoneNumber"
+                        data-th-field="*{phoneNumber}"
+                        type="text"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="9823525525"
+                />
+                <h6 id="phonecheck" style="color: red;"></h6>
+              </div>
+
+            </div>
+
+            <!-- address -->
+
+            <div class="mb-3">
+              <label
+                      for="message"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Contact Address</label
+              >
+              <textarea
+                      data-th-field="*{address}"
+                      rows="4"
+                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Address of the contact"
+              ></textarea>
+
+            </div>
+
+            <!-- description -->
+
+            <div class="mb-3">
+              <label
+                      for="message"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Contact Description</label
+              >
+              <textarea
+                      data-th-field="*{description}"
+                      rows="4"
+                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Write about your contact"
+              ></textarea>
+            </div>
+
+            <!-- social links -->
+            <div class="flex space-x-3 mb-3">
+              <div class="w-full">
+                <!-- website  link  -->
+                <div class="mb-3">
+                  <div class="relative mb-6">
+                    <div
+                            class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+                    >
+                      <i class="fa-solid w-4 h-4 fa-earth-americas"></i>
+                    </div>
+                    <input
+                            data-th-field="*{websiteLink}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="htt://learncodewithdurgesh.com/"
+                    />
+                    <h6 id="dobcheck" style="color: red;"></h6>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- contact image field -->
+            <div class="mb-3">
+              <label
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      for="large_size"
+              >Contact Image</label
+              >
+              <input
+                      id="image_file_input"
+                      class="block w-full mb-2 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                      data-th-field="*{contactImage}"
+                      type="file"
+              />
+
+              <img
+                      class="max-h-52 mx-auto rounded-lg shadow m-3"
+                      data-th-src="*{picture}"
+                      src=""
+                      id="upload_image_preview"
+                      alt=""
+              />
+            </div>
+
+            <!-- favorite checkbox -->
+
+            <div class="flex items-center mb-3">
+              <input
+                      data-th-field="*{favorite}"
+                      type="checkbox"
+                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                      for="default-checkbox"
+                      class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >Is this contact is your favorite one ?</label
+              >
+            </div>
+
+            <div class="button-container text-center">
+              <button
+                      type="submit"
+                      class="px-3 py-2 dark:bg-blue-600 hover:dark:bg-blue-700 rounded bg-black text-white"
+              >
+                Update Contact
+              </button>
+              <button
+                      type="reset"
+                      class="px-3 py-2 dark:bg-blue-600 hover:dark:bg-blue-700 rounded bg-black text-white"
+              >
+                Reset
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $(document).ready(function () {
+  $("#usercheck").hide();
+  $("#emailcheck").hide();
+  $("#phonecheck").hide();
+
+  let usernameError = true;
+  let emailError = true;
+  let phoneError = true;
+
+  // Validate on keyup and blur for name
+  $("#name").keyup(validateUsername);
+  $("#name").blur(validateUsername);
+
+  function validateUsername() {
+      let username = $("#name").val().trim();
+      let nameArray = username.split(" ");
+      let wordSet = new Set();
+
+      for (let word of nameArray) {
+          if (wordSet.has(word.toLowerCase())) {
+              $("#usercheck").show().html("Duplicate words are not allowed");
+              usernameError = false;
+              return false;
+          }
+          wordSet.add(word.toLowerCase());
+      }
+
+      if (username === "" || username.length < 2 || username.length > 15) {
+          $("#usercheck").show().html("Field must be required or Enter name must be between 2 to 15 characters");
+          usernameError = false;
+          return false;
+      }
+
+      for (let name of nameArray) {
+          if (name.charAt(0) !== name.charAt(0).toUpperCase()) {
+              $("#usercheck").show().html("Each word's first letter must be uppercase");
+              usernameError = false;
+              return false;
+          }
+      }
+
+      $("#usercheck").hide();
+      usernameError = true;
+  }
+
+  // Validate on keyup and blur for email
+  $("#email").keyup(validateUseremail);
+  $("#email").blur(validateUseremail);
+
+  function validateUseremail() {
+      let useremail = $("#email").val().trim();
+      const regex = /^[a-zA-Z0-9_.+\-]+[@][a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+
+      if (useremail === "") {
+          $("#emailcheck").show().html("Field must be required");
+          emailError = false;
+          return false;
+      } else if (!regex.test(useremail)) {
+          $("#emailcheck").show().html("Invalid Email Address");
+          emailError = false;
+          return false;
+      }
+
+      $("#emailcheck").hide();
+      emailError = true;
+  }
+
+  // Validate on keyup and blur for phone number
+  $("#phoneNumber").keyup(validateUserphone);
+  $("#phoneNumber").blur(validateUserphone);
+
+  function validateUserphone() {
+      let userphone = $("#phoneNumber").val().trim();
+      const number = /^[1-9][0-9]{9}$/;
+
+      if (userphone === "") {
+          $("#phonecheck").show().html("Field must be required");
+          phoneError = false;
+          return false;
+      } else if (!number.test(userphone)) {
+          $("#phonecheck").show().html("Invalid Phone Number");
+          phoneError = false;
+          return false;
+      }
+
+      $("#phonecheck").hide();
+      phoneError = true;
+  }
+
+  // Handle form submission
+  $("form").submit(function (event) {
+      // Run all validations
+      validateUsername();
+      validateUseremail();
+      validateUserphone();
+
+      // Prevent form submission if there are errors
+      if (!usernameError || !emailError || !phoneError) {
+          event.preventDefault(); // Prevent form from submitting
+          return false;
+      }
+
+      // Show confirmation pop-up
+      let confirmation = confirm("Are you sure you want to submit this form?");
+      if (!confirmation) {
+          event.preventDefault(); // Prevent form submission if user cancels
+      }
+  });
+});
+
+  console.log("this is profile page");
+</script>
+</body>
+</html>
