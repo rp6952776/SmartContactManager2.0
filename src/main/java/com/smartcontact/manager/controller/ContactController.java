@@ -36,6 +36,7 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
+
     @Autowired
     private ImageService imageService;
 
@@ -152,11 +153,7 @@ public class ContactController {
         contactService.delete(id);
         log.info("delete contact id " + id);
 
-        session.setAttribute("message",
-                Message.builder()
-                        .content("Contact is Deleted successfully !! ")
-                        .type(MessageType.green)
-                        .build());
+        session.setAttribute("message", Message.builder().content("Contact is Deleted successfully !! ").type(MessageType.green).build());
 
         return "redirect:/user/contacts";
     }
@@ -206,12 +203,11 @@ public class ContactController {
 
 
         // process image:
-
         if (contactForm.getContactImage() != null && !contactForm.getContactImage().isEmpty()) {
             log.info("file is not empty");
             String fileName = UUID.randomUUID().toString();
             String imageUrl = imageService.uploadImage(contactForm.getContactImage(), fileName);
-            //con.setCloudinaryImagePublicId(fileName);
+
             con.setPicture(imageUrl);
             contactForm.setPicture(imageUrl);
 
@@ -227,5 +223,6 @@ public class ContactController {
 
         return "redirect:/user/contacts/view/" + id;
     }
+
 
 }
